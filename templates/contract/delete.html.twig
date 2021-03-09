@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Delete - Crypto Tracker' %}
+
+{% block body %}
+
+<h1 class="text-light">Supprimer un montant</h1>
+
+<p>{{ contract.crypto.acronym }} ({{ contract.crypto.name }})</p>
+
+
+<form method="post" action="{{ path('app_contract_delete', {'id': contract.id}) }}">
+        <div class="form-group">
+        <label>AAAAAAA
+        <input type="number"class="form-control" name="quantityDelete" step="0.001" required="required"></label>
+        </div>
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contract.id) }}">
+            <div class="mt-5 btn-group">
+                <button class="btn btn-danger btn-lg">Valider</button>
+            </div>
+</form>
+
+  
+
+
+{% endblock %}

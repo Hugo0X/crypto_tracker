@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Home - Crypto Tracker' %}
+
+{% block body %}
+
+<h1 class="text-light">Crypto Tracker</h1>
+
+{{ form_start(form) }}
+    {{ form_widget(form)}}
+
+    <button class="btn btn-primary btn-lg">Register</button>
+{{ form_end(form) }}
+
+{% endblock %}

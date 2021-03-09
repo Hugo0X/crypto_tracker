@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Home - Crypto Tracker' %}
+
+{% block body %}
+
+<h1 class="text-light">Crypto Tracker</h1>
+<div class="col"><a href="{{ path('app_contract_add')}}" class="text-decoration-none btn btn-lg btn-light">New Crypto</a></div>
+ {% if contract|length > 0  %} 
+        
+            {% for row in contract|batch(1) %}
+                <div class="row text-center">
+                    {% for contract in row %}
+                        <div class="col-md-6">
+                            <p class="text-light" onclick="window.location.href = '{{ path('app_contract_delete', {'id': contract.id}) }}'">
+                                {{ contract.crypto.acronym }} ({{ contract.crypto.name }})
+                            </p>
+                        </div>    
+                    {% endfor %}    
+                </div>
+            {% endfor %}
+    {% else %}
+        <p class="mt-5 h1 text-center ">No contract yet. <a href="{{ path('app_contract_add') }}">Be the first!</a></p>
+    {% endif %}
+
+{% endblock %}
