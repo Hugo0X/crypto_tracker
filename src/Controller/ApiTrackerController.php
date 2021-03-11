@@ -15,8 +15,8 @@ class ApiTrackerController extends AbstractController
     {
         $response = file_get_contents( $this->apiLink . 'simple/price?ids='. $crypto .'&vs_currencies=eur');
         $response = json_decode($response);
-        
-        return $response;
+        $r = $response->$crypto->eur;
+        return $r;
     }
 
     public function getAcronym($crypto)
@@ -27,6 +27,14 @@ class ApiTrackerController extends AbstractController
         return $r;
     }
 
+    public function getImageUrl($crypto)
+    {
+        $response = file_get_contents( $this->apiLink . 'coins/'. $crypto);
+        $response = json_decode($response);
+        $r = $response->image->small;
+        return $r;
+    }
+
     public function isCryptoExist($crypto)
     {
         function get_http_response_code($url) {
@@ -34,7 +42,7 @@ class ApiTrackerController extends AbstractController
             return substr($headers[0], 9, 3);
         }
 
-        $url = $this->apiLink . 'coins/'. strtolower($crypto);
+        $url = $this->apiLink . 'coins/'. str_replace(' ', '-', strtolower($crypto));
 
         if(get_http_response_code($url) != "200"){
             return false;
@@ -43,4 +51,5 @@ class ApiTrackerController extends AbstractController
             return true;
         }
     }
+            
 }

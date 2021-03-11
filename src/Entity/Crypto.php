@@ -6,6 +6,7 @@ use App\Repository\CryptoRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Controller\ApiTrackerController;
 
 
 /**
@@ -27,7 +28,7 @@ class Crypto
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=3, unique=true)
+     * @ORM\Column(type="string", length=8, unique=true)
      */
     private $acronym;
 
@@ -58,5 +59,12 @@ class Crypto
         $this->acronym = $acronym;
 
         return $this;
+    }
+
+    public function getCryptoImageUrl() : ?string
+    {
+        $apiTracker = new ApiTrackerController;
+
+        return( $apiTracker->getImageUrl($this->getName()));
     }
 }

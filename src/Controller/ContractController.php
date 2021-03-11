@@ -28,22 +28,21 @@ class ContractController extends AbstractController
     {
         $contract = $contractRepository->findBy([], ['price' => 'DESC']);
 
-        return $this->render('contract/index.html.twig', [ 'contract' => $contract ]);
+        return $this->render('contract/index.html.twig', [ 'contracts' => $contract ]);
     }
 
     /**
-     * @Route("/addContract", name="app_contract_add", methods={"GET","POST"})
+     * @Route("/contract/new", name="app_contract_add", methods={"GET","POST"}) 
      */
     public function formAddContract(Request $request, ApiTrackerController $apiTracker): Response
-    {    
+    {   
         $contract = new Contract;
         $form = $this->createForm(ContractType::class, $contract);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $apiTracker->isCryptoExist($form['crypto']->getData()->getName())) { 
+        if ($form->isSubmitted() && $form->isValid()) { // && $apiTracker->isCryptoExist($form['crypto']->getData()->getName())
 
             $contract = $form->getData();
-            // $contract->setAcronym($apiTracker->getAcronym($contract->getName()));
 
             $this->em->persist($contract);
             $this->em->flush();
@@ -61,7 +60,7 @@ class ContractController extends AbstractController
      */
     public function delete(Request $request, Contract $contract): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$contract->getId(), $request->request->get('_token')) && is_numeric($request->request->get('quantityDelete'))) {
+        if ($this->isCsrfTokenValid('contract_deletion_'.$contract->getId(), $request->request->get('_token')) && is_numeric($request->request->get('quantityDelete'))) {
             
             $quantityDelete = $request->request->get('quantityDelete');
 
@@ -81,5 +80,4 @@ class ContractController extends AbstractController
 
         return $this->render('contract/delete.html.twig', [ 'contract' => $contract ]);
     }
-
 }

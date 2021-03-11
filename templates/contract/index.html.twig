@@ -3,24 +3,36 @@
 {% block title 'Home - Crypto Tracker' %}
 
 {% block body %}
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-<h1 class="text-light">Crypto Tracker</h1>
-<div class="col"><a href="{{ path('app_contract_add')}}" class="text-decoration-none btn btn-lg btn-light">New Crypto</a></div>
- {% if contract|length > 0  %} 
+<h1 class="text-light border-bottom border-light">Crypto Tracker<span class="material-icons md-light md40">add</span></h1>
+<div class="col"><a href="{{ path('app_contract_add')}}" class="text-decoration-none btn btn-lg btn-light">contract<span class="material-icons md-light md36">
+add
+</span></a></div>
+<div class="col"><a href="{{ path('app_crypto_index')}}" class="text-decoration-none btn btn-lg btn-light"><i class="fas fa-pen"></i>
+ crypto</a></div>
+
+<p class="h2 text-center text-light font-weight-bold" >+ {{ benefit(contracts) }} €</p>  
+
+
+{% if contracts|length > 0  %} 
         
-            {% for row in contract|batch(1) %}
-                <div class="row text-center">
-                    {% for contract in row %}
-                        <div class="col-md-6">
-                            <p class="text-light" onclick="window.location.href = '{{ path('app_contract_delete', {'id': contract.id}) }}'">
-                                {{ contract.crypto.acronym }} ({{ contract.crypto.name }})
-                            </p>
-                        </div>    
-                    {% endfor %}    
-                </div>
-            {% endfor %}
+    {% for contract in contracts %}
+        <div class="container mb-2 text-center border-bottom border-light">
+            <div class="row">
+                <div class="col"><img class="" src={{ contract.crypto.getCryptoImageUrl }}></div>
+                <div class="col"><p class="text-light" onclick="window.location.href = '{{ path('app_contract_delete', {'id': contract.id}) }}'">
+                    <span class="font-weight-bold">{{ contract.crypto.acronym }}</span> ({{ contract.crypto.name|capitalize }})
+                </p></div>    
+                <div class="col"> {% set aFluctuation = fluctuation(contract)  %}
+                {{ aFluctuation | raw }}</div>    
+            </div>
+        </div>
+
+    {% endfor %}
+
     {% else %}
         <p class="mt-5 h1 text-center ">No contract yet. <a href="{{ path('app_contract_add') }}">Be the first!</a></p>
-    {% endif %}
+{% endif %}
 
 {% endblock %}

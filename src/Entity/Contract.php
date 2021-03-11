@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ContractRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Controller\ApiTrackerController;
 
 /**
  * @ORM\Entity(repositoryClass=ContractRepository::class)
@@ -72,5 +73,12 @@ class Contract
         $this->quantity = $quantity;
 
         return $this;
+    }
+
+    public function getCurrentPrice() : ?int
+    {
+        $apiTracker = new ApiTrackerController;
+
+        return( $apiTracker->getCurrency($this->getCrypto()->getName()));
     }
 }

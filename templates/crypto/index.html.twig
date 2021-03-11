@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crypto - Crypto Tracker{% endblock %}
+
+{% block body %}
+
+<div class="col"><a href="{{ path('app_crypto_new')}}" class="text-decoration-none btn btn-lg btn-light">+ crypto</a></div>
+
+ {% if cryptos|length > 0  %} 
+        
+    {% for crypto in cryptos %}
+        <div class="text-center">
+            <a href="#" onclick="event.preventDefault(); confirm('Are you sure?') && document.getElementById('js-crypto-delete-form-{{ crypto.id }}').submit();" class="m-3 btn btn-danger">
+                {{ crypto.acronym }} ({{ crypto.name }})
+            </a>
+        <img src={{ crypto.getCryptoImageUrl }}>
+            <form id="js-crypto-delete-form-{{ crypto.id }}" action="{{ path('app_crypto_delete', {'id': crypto.id}) }}" method="post" style="display: none;">
+                <input type="hidden" name="_token" value="{{ csrf_token('crypto_deletion_' ~ crypto.id) }}">
+                <input type="hidden" name="_method" value="DELETE">
+            </form>
+        </div>    
+    {% endfor %}    
+
+    {% else %}
+        <p class="mt-5 h1 text-center ">No contract yet. <a href="{{ path('app_crypto_new') }}">Be the first!</a></p>
+    {% endif %}
+
+{% endblock %}

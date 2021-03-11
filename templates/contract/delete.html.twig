@@ -15,7 +15,7 @@
         <input type="number"class="form-control" name="quantityDelete" step="0.001" required="required"></label>
         </div>
         <input type="hidden" name="_method" value="DELETE">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contract.id) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('contract_deletion_' ~ contract.id) }}">
             <div class="mt-5 btn-group">
                 <button class="btn btn-danger btn-lg">Valider</button>
             </div>
