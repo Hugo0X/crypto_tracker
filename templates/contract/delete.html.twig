@@ -11,8 +11,8 @@
 
 <form method="post" action="{{ path('app_contract_delete', {'id': contract.id}) }}">
         <div class="form-group">
-        <label>AAAAAAA
-        <input type="number"class="form-control" name="quantityDelete" step="0.001" required="required"></label>
+        <label>Delete
+        <input type="number" class="form-control" name="quantityDelete" step="0.000001" required="required" min="0.000001" maxlenght="50"></label>
         </div>
         <input type="hidden" name="_method" value="DELETE">
         <input type="hidden" name="_token" value="{{ csrf_token('contract_deletion_' ~ contract.id) }}">

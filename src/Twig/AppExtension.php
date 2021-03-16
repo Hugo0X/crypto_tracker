@@ -45,6 +45,18 @@ class AppExtension extends AbstractExtension
         }
 
         return str_repeat('<span class="material-icons text-light '. $class .'">'. $icon .'</span>', $nbrI);
+        // if ($nbrI ==1)
+        // {
+        //     return '<div class="material-icons text-light '. $class .'">'. $icon .'</div>';
+        // }
+        // else
+        // {
+        //     return '<div class="d-flex justify-content-end text-light">
+        //         <div class="material-icons '. $class .'">'. $icon .'</div>
+        //         <div class="material-icons '. $class .'">'. $icon .'</div>
+        //     </div>
+        //     ';
+        // }
     }
 
     public function getBenefit(array $contrats): int

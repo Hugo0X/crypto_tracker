@@ -11,6 +11,8 @@ use App\Entity\Contract;
 use App\Repository\ContractRepository;
 use App\Form\ContractType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 class ContractController extends AbstractController
 {
@@ -55,12 +57,47 @@ class ContractController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/contract/fluctuationGraphic", name="app_contract_fluctuationGraphic", methods={"GET"}) 
+     */
+    public function fluctuationGraphic(ChartBuilderInterface $chartBuilder): Response
+    {
+        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+        $chart->setData([
+            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            'datasets' => [
+                [
+                    'borderColor' => '#228551',
+                    'data' => [0, 5, -10, 20, -15, 10, 8],
+                    'borderCapStyle' => 'round',
+                    'borderWidth' => 7,
+                    'lineTension' => 0.8,
+                    'fill' => false,
+                ],
+            ],
+        ]);
+        
+        $chart->setOptions([
+            'responsive' => true,
+            'legend' => ['display' => false],
+            'scales' => [
+                'xAxes' => [ 'gridLines'=>  ['display'=> true,'drawBorder'=> true, 'drawOnChartArea'=> false] ],
+                'yAxes'=>  [ 'gridLines'=>  ['display'=> true,'drawBorder'=> true, 'drawOnChartArea'=> false] ],
+            ]
+        ]);
+
+        return $this->render('contract/fluctuationGraphic.html.twig', [
+            'chart' => $chart,
+        ]);
+    }
+
     /**
      * @Route("/delete/{id<[0-9]+>}", name="app_contract_delete", methods={"GET","DELETE"})
      */
     public function delete(Request $request, Contract $contract): Response
     {
-        if ($this->isCsrfTokenValid('contract_deletion_'.$contract->getId(), $request->request->get('_token')) && is_numeric($request->request->get('quantityDelete'))) {
+        if ($this->isCsrfTokenValid('contract_deletion_'.$contract->getId(), $request->request->get('_token')) && is_numeric($request->request->get('quantityDelete')) && $request->request->get('quantityDelete') >= 0.000001) {
             
             $quantityDelete = $request->request->get('quantityDelete');
 

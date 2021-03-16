@@ -5,34 +5,45 @@
 {% block body %}
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-<h1 class="text-light border-bottom border-light">Crypto Tracker<span class="material-icons md-light md40">add</span></h1>
-<div class="col"><a href="{{ path('app_contract_add')}}" class="text-decoration-none btn btn-lg btn-light">contract<span class="material-icons md-light md36">
-add
-</span></a></div>
-<div class="col"><a href="{{ path('app_crypto_index')}}" class="text-decoration-none btn btn-lg btn-light"><i class="fas fa-pen"></i>
- crypto</a></div>
+<div class="py-2 borderBottom">
+    <div class="d-flex justify-content-between">
+        <div class="ml-3"><h1 class="text-light h2">Crypto Tracker</h1></div>
+        <div class="d-flex justify-content-end">
+            <div class="mr-4 d-flex align-items-center"><a href="{{ path('app_crypto_index')}}" class="text-decoration-none material-icons text-light h2">edit</a></div>
+            <div class="mr-3"><a href="{{ path('app_contract_add')}}" class="text-decoration-none text-light regular h2">+</a></div>
+        </div>    
+    </div>
+</div>
 
-<p class="h2 text-center text-light font-weight-bold" >+ {{ benefit(contracts) }} €</p>  
-
+<div class="py-5 h1 text-center text-light background"><p >+ {{ benefit(contracts) }} €</p></div>
 
 {% if contracts|length > 0  %} 
-        
+<div class="mt-4 mx-4 col-10 mx-auto">       
     {% for contract in contracts %}
-        <div class="container mb-2 text-center border-bottom border-light">
-            <div class="row">
-                <div class="col"><img class="" src={{ contract.crypto.getCryptoImageUrl }}></div>
-                <div class="col"><p class="text-light" onclick="window.location.href = '{{ path('app_contract_delete', {'id': contract.id}) }}'">
-                    <span class="font-weight-bold">{{ contract.crypto.acronym }}</span> ({{ contract.crypto.name|capitalize }})
-                </p></div>    
-                <div class="col"> {% set aFluctuation = fluctuation(contract)  %}
-                {{ aFluctuation | raw }}</div>    
+        <div class="mb-5 borderBottom click" onclick="window.location.href = '{{ path('app_contract_delete', {'id': contract.id}) }}'";>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-start">
+                    <div class="">
+                        <img width="20" src={{ contract.crypto.getCryptoImageUrl }}>
+                    </div>
+                    <div class="ml-2 text-light d-flex align-items-start">
+                        <h4>{{ contract.crypto.acronym }}</h4>
+                    </div>
+                    <div class="ml-2">
+                        <p class="text-light regular">({{ contract.crypto.name|capitalize }})</p>
+                    </div>
+                </div>
+                <div class="">
+                    {{ fluctuation(contract) | raw }}  
+                </div>
             </div>
         </div>
-
+        
     {% endfor %}
 
     {% else %}
         <p class="mt-5 h1 text-center ">No contract yet. <a href="{{ path('app_contract_add') }}">Be the first!</a></p>
 {% endif %}
-
+</div>
+      
 {% endblock %}

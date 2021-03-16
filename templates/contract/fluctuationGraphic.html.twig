@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Home - Crypto Tracker' %}
+
+{% block body %}
+
+
+<div><h1 class="text-light h2">Crypto Tracker</h1></div>
+
+{{ render_chart(chart) }}
+
+{# You can pass HTML attributes as a second argument to add them on the <canvas> tag #}
+{# {{ render_chart(chart, {'class': 'my-chart'}) }} #}
+
+
+{% endblock %}

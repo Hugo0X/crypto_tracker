@@ -1,7 +1,52 @@
 @import "~bootstrap/scss/bootstrap";
 
+@font-face {
+    font-family: 'Akzidenz-Grotesk BQ';
+    src: local('Akzidenz-Grotesk BQ Bold Condensed'), local('Akzidenz-Grotesk-BQ-Bold-Condensed'),
+        url('./fonts/akzidenzGroteskBQ/AkzidenzGroteskBQ-BdCnd.woff2') format('woff2'),
+        url('./fonts/akzidenzGroteskBQ/AkzidenzGroteskBQ-BdCnd.woff') format('woff'),
+        url('./fonts/akzidenzGroteskBQ/AkzidenzGroteskBQ-BdCnd.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: local('Roboto-Regular'),
+        url('./fonts/roboto/Roboto-Regular.ttf') format('truetype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto-Bold';
+    src: local('Roboto-Bold'),
+        url('./fonts/roboto/Roboto-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
 body {
-    background-color: #100f0f;
+    background-color: #100f0f;//100f0f
+    font-family: 'Roboto-Bold', sans-serif;
+}
+
+h1 {
+    font-family: 'Akzidenz-Grotesk BQ', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+}
+
+.click
+{
+    cursor: pointer;
+}
+
+.regular {
+    font-family: 'Roboto-Regular', sans-serif;
+
 }
 
 .rotate120 {
@@ -10,4 +55,14 @@ body {
 
 .rotate270 {
     transform: rotate(270deg);
+}
+
+.borderBottom {
+    border-bottom: solid #2c2828;
+}
+
+.background
+{
+    background: center repeat-x url('../images/banner.png');
+
 }

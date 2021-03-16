@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ContractRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Controller\ApiTrackerController;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ContractRepository::class)
@@ -26,11 +27,31 @@ class Contract
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="ContractEntity.not_blank")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 50,
+     *      minMessage = "ContractEntity.minLenght",
+     *      maxMessage = "ContractEntity.maxLenght",
+     *      allowEmptyString = false
+     * )
+     * @Assert\Positive(
+     *      message = "ContractEntity.positive"
+     * )
      */
     private $price;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="ContractEntity.not_blank")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 50,
+     *      minMessage = "ContractEntity.minLenght",
+     *      maxMessage = "ContractEntity.maxLenght",
+     *      allowEmptyString = false
+     * )
+     * @Assert\Positive(message = "ContractEntity.positive")
      */
     private $quantity;
 
@@ -81,4 +102,6 @@ class Contract
 
         return( $apiTracker->getCurrency($this->getCrypto()->getName()));
     }
+
+    // $this->setUpdatedAt( new \DateImmutable);
 }
