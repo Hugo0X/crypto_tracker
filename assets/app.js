@@ -12,3 +12,9 @@ import './styles/app.scss';
 import './bootstrap';
 
 let html = `<img src="${logoPath}" alt="ACME logo">`;
+
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+// const $ = require('jquery');
+

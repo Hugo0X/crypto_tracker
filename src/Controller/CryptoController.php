@@ -30,7 +30,15 @@ class CryptoController extends AbstractController
      */
     public function index(CryptoRepository $cryptoRepository)
     {
+        $query = $this->em->createQuery(
+            'SELECT IDENTITY(con.crypto) cryptoId, SUM(con.price) price, SUM(con.quantity) quantity
+            FROM App\Entity\Contract con
+            GROUP BY con.crypto '
+        );
+        $sumCrypto = $query->getResult();
+
         return $this->render('crypto/index.html.twig', [
+            'sumCrypto' => $sumCrypto,
             'cryptos' => $cryptoRepository->findAll(),
         ]);
     }

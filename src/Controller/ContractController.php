@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\ApiTrackerController;
+use App\Controller\Crypto;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Contract;
 use App\Repository\ContractRepository;
@@ -36,24 +37,42 @@ class ContractController extends AbstractController
     /**
      * @Route("/contract/new", name="app_contract_add", methods={"GET","POST"}) 
      */
-    public function formAddContract(Request $request, ApiTrackerController $apiTracker): Response
+    public function formAddContract(Request $request, ApiTrackerController $apiTracker, ContractRepository $contractRepository): Response
     {   
         $contract = new Contract;
         $form = $this->createForm(ContractType::class, $contract);
+
+        // $query = $this->em->createQuery(
+        //     'SELECT cry.id, cry.name
+        //     FROM App\Entity\Crypto cry
+        //     ORDER BY cry.id'
+        // );
+        // $cryptos = $query->getResult();
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) { // && $apiTracker->isCryptoExist($form['crypto']->getData()->getName())
+
+        if ($form->isSubmitted() && $form->isValid()) {// && $apiTracker->isCryptoExist($form['cryptoName']->getData())//->getName()
 
             $contract = $form->getData();
+            // $cryptoName = $form['crypto']->getData();
 
+            // if(in_array($cryptoName, array_column($cryptos, 'name')))
+            // {
+            //     $contract->setCrypto(1);
+            //     dd($contract);
+            // }
+            // else
+            // {
+
+            // }
             $this->em->persist($contract);
             $this->em->flush();
-
             return $this->redirectToRoute('app_contract_home');
         }
 
         return $this->render('contract/formAddContract.html.twig', [
-            'form' => $form->createView(), 
+            // 'cryptos' => $cryptos, 
+            'form' => $form->createView()
         ]);
     }
 

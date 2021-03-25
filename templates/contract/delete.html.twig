@@ -4,24 +4,37 @@
 
 {% block body %}
 
-<h1 class="text-light">Supprimer un montant</h1>
-
-<p>{{ contract.crypto.acronym }} ({{ contract.crypto.name }})</p>
-
-
-<form method="post" action="{{ path('app_contract_delete', {'id': contract.id}) }}">
-        <div class="form-group">
-        <label>Delete
-        <input type="number" class="form-control" name="quantityDelete" step="0.000001" required="required" min="0.000001" maxlenght="50"></label>
+<div class="page-container">
+    <div class="py-2 borderBottom">
+        <div class="d-flex justify-content-between text-light" >
+            <div class="ml-2 h1 regular"><a href="{{ path('app_contract_home')}}" class="text-decoration-none text-light">×</a></div>
+            <div class="h4 d-flex align-items-center">Supprimer un montant</div>
+            <div class="invisible"></div>
         </div>
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="hidden" name="_token" value="{{ csrf_token('contract_deletion_' ~ contract.id) }}">
-            <div class="mt-5 btn-group">
-                <button class="btn btn-danger btn-lg">Valider</button>
-            </div>
+    </div>
+
+    <div class="m_top col-10 mx-auto content-wrap">
+        <div class="my-5 p-2 border border-light rounded d-flex">
+            <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">search</div>
+            <div class="pt-1 regular">{{ contract.crypto.acronym }} ({{ contract.crypto.name }})</div>
+        </div>
+        <div class="my-5 p-2 pb-3 border border-light rounded d-flex">
+            <div class="ml-2 mr-4 pt-1"><img class="ajustImg" src=" {{ asset('build/images/coin.png') }}"></div>
+            <form method="post" action="{{ path('app_contract_delete', {'id': contract.id}) }}">
+                <div class="regular pt-1">
+                    <input type="number" placeholder="Quantité" class="text-light w-100" name="quantityDelete" step="0.000001" required="required" min="0.000001" maxlenght="50" size="1000">
+                </div>
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('contract_deletion_' ~ contract.id) }}">
+        </div>
+
+    </div>
+
+    <div class="center btnFooter">
+        <button type="submit" class="py-3 btn btn-lg theme_color bg-white">VALIDER</button>
+    </div>
+ 
 </form>
-
-  
-
+</div>
 
 {% endblock %}

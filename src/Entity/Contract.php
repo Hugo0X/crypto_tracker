@@ -20,7 +20,7 @@ class Contract
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Crypto::class)
+     * @ORM\ManyToOne(targetEntity=Crypto::class, inversedBy="contracts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $crypto;
@@ -94,13 +94,6 @@ class Contract
         $this->quantity = $quantity;
 
         return $this;
-    }
-
-    public function getCurrentPrice() : ?int
-    {
-        $apiTracker = new ApiTrackerController;
-
-        return( $apiTracker->getCurrency($this->getCrypto()->getName()));
     }
 
     // $this->setUpdatedAt( new \DateImmutable);

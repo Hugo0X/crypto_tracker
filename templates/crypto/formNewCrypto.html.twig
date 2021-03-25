@@ -1,13 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Crypto - Crypto Tracker{% endblock %}
+{% block title 'New Crypto - Crypto Tracker' %}
 
 {% block body %}
 
 {{ form_start(form) }}
-    {{ form_widget(form)}}
+<div class="page-container">
+    <div class="py-2 borderBottom">
+        <div class="d-flex justify-content-between text-light" >
+            <div class="ml-2 h1 regular"><a href="{{ path('app_crypto_index')}}" class="text-decoration-none text-light">×</a></div>
+            <div class="h4 d-flex align-items-center">Ajouter une Crypto Monnaie</div>
+            <div class="invisible"></div>
+        </div>
+    </div>
+    <div class="m_top col-10 mx-auto content-wrap">
+        <div class="my-5 p-2 border border-light rounded d-flex">
+        
+        <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">add</div>
+        {{ form_row(form.name, {'attr': {'placeholder': 'Ajouter une crypto', 'list':'listCrypto', 'class': 'text-light regular theme_background w-100 pt-1 ', 'size':'10000' }}) }}
+        </div>
+    </div>
+</div>
 
-    <button class="btn btn-primary btn-lg">Register</button>
+<div class="center btnFooter">
+    <button type="submit" class="py-3 btn btn-lg theme_background_darckGrey theme_color">AJOUTER</button>
+</div>
 {{ form_end(form) }}
 
 {% endblock %}

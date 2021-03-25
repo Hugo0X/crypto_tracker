@@ -1,28 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Crypto - Crypto Tracker{% endblock %}
+{% block title 'Crypto - Crypto Tracker' %}
 
 {% block body %}
 
-<div class="col"><a href="{{ path('app_crypto_new')}}" class="text-decoration-none btn btn-lg btn-light">+ crypto</a></div>
+<div class="py-2 borderBottom mb-5">
+    <div class="d-flex justify-content-between">
+        <div class="ml-3"><a href="{{ path('app_contract_home')}}" class="text-decoration-none"><h1 class="text-light h2">Crypto Tracker</h1></a></div>
+        <div class="mr-3"><a href="{{ path('app_crypto_new')}}" class="text-decoration-none text-light regular h2">+</a></div>    
+    </div>
+</div>
 
- {% if cryptos|length > 0  %} 
-        
+{% if cryptos|length > 0  %} 
+<div class="mt-5 mx-4 col-10 mx-auto">     
     {% for crypto in cryptos %}
-        <div class="text-center">
-            <a href="#" onclick="event.preventDefault(); confirm('Are you sure?') && document.getElementById('js-crypto-delete-form-{{ crypto.id }}').submit();" class="m-3 btn btn-danger">
-                {{ crypto.acronym }} ({{ crypto.name }})
-            </a>
-        <img src={{ crypto.getCryptoImageUrl }}>
-            <form id="js-crypto-delete-form-{{ crypto.id }}" action="{{ path('app_crypto_delete', {'id': crypto.id}) }}" method="post" style="display: none;">
-                <input type="hidden" name="_token" value="{{ csrf_token('crypto_deletion_' ~ crypto.id) }}">
-                <input type="hidden" name="_method" value="DELETE">
-            </form>
-        </div>    
+        <div class="mb-5 borderBottom click" onclick="event.preventDefault(); confirm('Are you sure?') && document.getElementById('js-crypto-delete-form-{{ crypto.id }}').submit();">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-start">
+                    <div class="">
+                        <img width="20" src={{ crypto.getCryptoImageUrl }}>
+                    </div>
+                    <div class="ml-2 text-light d-flex align-items-start">
+                        <h4>{{ crypto.acronym }}</h4>
+                    </div>
+                    <div class="ml-2">
+                        <p class="text-light regular">({{ crypto.name|capitalize }})</p>
+                    </div>
+                </div>
+                <div class="">
+                    {{ cryptoFluctuation(crypto, sumCrypto) | raw }}  
+                </div>
+            </div>
+        </div>
+        <form id="js-crypto-delete-form-{{ crypto.id }}" action="{{ path('app_crypto_delete', {'id': crypto.id}) }}" method="post" style="display: none;">
+            <input type="hidden" name="_token" value="{{ csrf_token('crypto_deletion_' ~ crypto.id) }}">
+            <input type="hidden" name="_method" value="DELETE">
+        </form>
     {% endfor %}    
 
     {% else %}
-        <p class="mt-5 h1 text-center ">No contract yet. <a href="{{ path('app_crypto_new') }}">Be the first!</a></p>
+        <p class="mt-5 h1 text-center ">Pas encore de crypto enregistrées<a href="{{ path('app_crypto_new') }}">The first!</a></p>
     {% endif %}
 
 {% endblock %}

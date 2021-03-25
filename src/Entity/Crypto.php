@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CryptoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -31,6 +33,16 @@ class Crypto
      * @ORM\Column(type="string", length=8, unique=true)
      */
     private $acronym;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Contract::class, mappedBy="crypto", orphanRemoval=true)
+     */
+    private $contracts;
+
+    public function __construct()
+    {
+        $this->contracts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -66,5 +78,12 @@ class Crypto
         $apiTracker = new ApiTrackerController;
 
         return( $apiTracker->getImageUrl($this->getName()));
+    }
+
+    public function getCurrentPrice() : ?int
+    {
+        $apiTracker = new ApiTrackerController;
+
+        return( $apiTracker->getCurrency($this->getName()));
     }
 }

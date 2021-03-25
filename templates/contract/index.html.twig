@@ -3,11 +3,10 @@
 {% block title 'Home - Crypto Tracker' %}
 
 {% block body %}
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <div class="py-2 borderBottom">
     <div class="d-flex justify-content-between">
-        <div class="ml-3"><h1 class="text-light h2">Crypto Tracker</h1></div>
+        <div class="ml-3"><a href="{{ path('app_contract_home')}}" class="text-decoration-none"><h1 class="text-light h2">Crypto Tracker</h1></a></div>
         <div class="d-flex justify-content-end">
             <div class="mr-4 d-flex align-items-center"><a href="{{ path('app_crypto_index')}}" class="text-decoration-none material-icons text-light h2">edit</a></div>
             <div class="mr-3"><a href="{{ path('app_contract_add')}}" class="text-decoration-none text-light regular h2">+</a></div>
@@ -20,7 +19,7 @@
 {% if contracts|length > 0  %} 
 <div class="mt-4 mx-4 col-10 mx-auto">       
     {% for contract in contracts %}
-        <div class="mb-5 borderBottom click" onclick="window.location.href = '{{ path('app_contract_delete', {'id': contract.id}) }}'";>
+        <div class="mb-5 borderBottom click" onclick="window.location.href = '{{ path('app_contract_delete', {'id': contract.id}) }}'">
             <div class="d-flex justify-content-between">
                 <div class="d-flex justify-content-start">
                     <div class="">
@@ -42,7 +41,7 @@
     {% endfor %}
 
     {% else %}
-        <p class="mt-5 h1 text-center ">No contract yet. <a href="{{ path('app_contract_add') }}">Be the first!</a></p>
+        <p class="mt-5 h2 text-center ">Pas encore de transactions. <a href="{{ path('app_contract_add') }}">The first!</a></p>
 {% endif %}
 </div>
       
