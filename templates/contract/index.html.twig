@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="py-5 h1 text-center text-light background"><p >+ {{ benefit(contracts) }} €</p></div>
+<a href="{{ path('app_history_graph')}}" class="text-decoration-none"><div class="py-5 h1 text-center text-light background"><p >+ {{ benefit(contracts) }} €</p></div></a>
 
 {% if contracts|length > 0  %} 
 <div class="mt-4 mx-4 col-10 mx-auto">       

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Home - Crypto Tracker' %}
+
+{% block body %}
+
+<div class="py-2 borderBottom">
+    <div class="d-flex justify-content-between text-light" >
+        <div class="ml-2 h1 regular"><a href="{{ path('app_contract_home')}}" class="text-decoration-none text-light">×</a></div>
+        <div class="h4 d-flex align-items-center">Vos gains</div>
+        <div class="invisible"></div>
+    </div>
+</div>
+
+<div class="m_top" id="div_chart"></div>
+    
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    {{ gc_draw(chart, 'div_chart') }}
+</script>
+
+
+{# You can pass HTML attributes as a second argument to add them on the <canvas> tag #}
+{# {{ render_chart(chart, {'class': 'my-chart'}) }} #}
+
+
+{% endblock %}

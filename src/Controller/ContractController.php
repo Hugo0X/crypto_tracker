@@ -12,8 +12,11 @@ use App\Entity\Contract;
 use App\Repository\ContractRepository;
 use App\Form\ContractType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
+
+// use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+// use Symfony\UX\Chartjs\Model\Chart;
+
+// use CMEN\GoogleChartsBundle\GoogleCharts\Charts\LineChart;
 
 class ContractController extends AbstractController
 {
@@ -42,12 +45,6 @@ class ContractController extends AbstractController
         $contract = new Contract;
         $form = $this->createForm(ContractType::class, $contract);
 
-        // $query = $this->em->createQuery(
-        //     'SELECT cry.id, cry.name
-        //     FROM App\Entity\Crypto cry
-        //     ORDER BY cry.id'
-        // );
-        // $cryptos = $query->getResult();
         $form->handleRequest($request);
 
 
@@ -55,61 +52,58 @@ class ContractController extends AbstractController
 
             $contract = $form->getData();
             // $cryptoName = $form['crypto']->getData();
-
             // if(in_array($cryptoName, array_column($cryptos, 'name')))
-            // {
-            //     $contract->setCrypto(1);
-            //     dd($contract);
-            // }
-            // else
-            // {
-
-            // }
             $this->em->persist($contract);
             $this->em->flush();
             return $this->redirectToRoute('app_contract_home');
         }
 
-        return $this->render('contract/formAddContract.html.twig', [
-            // 'cryptos' => $cryptos, 
+        return $this->render('contract/formAddContract.html.twig', [ 
             'form' => $form->createView()
         ]);
     }
 
 
-    /**
-     * @Route("/contract/fluctuationGraphic", name="app_contract_fluctuationGraphic", methods={"GET"}) 
-     */
-    public function fluctuationGraphic(ChartBuilderInterface $chartBuilder): Response
-    {
-        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
-        $chart->setData([
-            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            'datasets' => [
-                [
-                    'borderColor' => '#228551',
-                    'data' => [0, 5, -10, 20, -15, 10, 8],
-                    'borderCapStyle' => 'round',
-                    'borderWidth' => 7,
-                    'lineTension' => 0.8,
-                    'fill' => false,
-                ],
-            ],
-        ]);
-        
-        $chart->setOptions([
-            'responsive' => true,
-            'legend' => ['display' => false],
-            'scales' => [
-                'xAxes' => [ 'gridLines'=>  ['display'=> true,'drawBorder'=> true, 'drawOnChartArea'=> false] ],
-                'yAxes'=>  [ 'gridLines'=>  ['display'=> true,'drawBorder'=> true, 'drawOnChartArea'=> false] ],
-            ]
-        ]);
+    // /**
+    //  * @Route("/contract/fluctuationGraphic", name="app_contract_fluctuationGraphic", methods={"GET"}) 
+    //  */
+    // public function fluctuationGraphic(): Response
+    // {
+    //     $line = new LineChart();
+    //     $line->getData()->setArrayToDataTable(
+    //         [
+    //             ['day', 'Sales'],
+    //             [0, 0],
+    //             ['1',  1000],
+    //             ['2',  1170],
+    //             ['3',  -660 ],
+    //             ['4',  1030]
+      
+    //         ]);
+   
+    // $line->getOptions()->setColors(['#228551']);
+    // $line->getOptions()->setCurveType('function');
+    // $line->getOptions()->setLineWidth(6);
+    // $line->getOptions()->getLegend()->setPosition('none');
+    // $line->getOptions()->getBackgroundColor()->setFill('#100f0f');
+    // $line->getOptions()->setDataOpacity(0.1);
 
-        return $this->render('contract/fluctuationGraphic.html.twig', [
-            'chart' => $chart,
-        ]);
-    }
+    // $line->getOptions()->getHAxis()->getGridlines()->setColor('transparent');
+    // $line->getOptions()->getHAxis()->setTextPosition('none');
+    // $line->getOptions()->getHAxis()->setBaseLineColor('white');
+
+    // $line->getOptions()->getVAxis()->getGridlines()->setColor('transparent');
+    // $line->getOptions()->getVAxis()->setTextPosition('none');
+    // $line->getOptions()->getVAxis()->setBaseLineColor('white');
+
+    // // $line->getOptions()->setTrendlines([0 => ['opacity'=> 0.1, 'color'=> '#228551']]);
+
+
+
+    // // dd($line);
+
+    // return $this->render('contract/fluctuationGraphic.html.twig', ['chart' => $line]);
+    // }
 
     /**
      * @Route("/delete/{id<[0-9]+>}", name="app_contract_delete", methods={"GET","DELETE"})

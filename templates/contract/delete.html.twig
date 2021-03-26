@@ -3,7 +3,8 @@
 {% block title 'Delete - Crypto Tracker' %}
 
 {% block body %}
-
+<form method="post" action="{{ path('app_contract_delete', {'id': contract.id}) }}">
+    
 <div class="page-container">
     <div class="py-2 borderBottom">
         <div class="d-flex justify-content-between text-light" >
@@ -13,6 +14,7 @@
         </div>
     </div>
 
+
     <div class="m_top col-10 mx-auto content-wrap">
         <div class="my-5 p-2 border border-light rounded d-flex">
             <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">search</div>
@@ -20,21 +22,18 @@
         </div>
         <div class="my-5 p-2 pb-3 border border-light rounded d-flex">
             <div class="ml-2 mr-4 pt-1"><img class="ajustImg" src=" {{ asset('build/images/coin.png') }}"></div>
-            <form method="post" action="{{ path('app_contract_delete', {'id': contract.id}) }}">
-                <div class="regular pt-1">
-                    <input type="number" placeholder="Quantité" class="text-light w-100" name="quantityDelete" step="0.000001" required="required" min="0.000001" maxlenght="50" size="1000">
-                </div>
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token('contract_deletion_' ~ contract.id) }}">
+            <input type="number" placeholder="Quantité" class="pt-1 regular text-light w-100" name="quantityDelete" step="0.000001" required="required" min="0.000001" maxlenght="50">     
         </div>
-
     </div>
 
     <div class="center btnFooter">
         <button type="submit" class="py-3 btn btn-lg theme_color bg-white">VALIDER</button>
     </div>
- 
-</form>
 </div>
+
+<input type="hidden" name="_method" value="DELETE">
+<input type="hidden" name="_token" value="{{ csrf_token('contract_deletion_' ~ contract.id) }}">
+</form>
+
 
 {% endblock %}
