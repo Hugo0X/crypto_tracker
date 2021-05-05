@@ -46,7 +46,7 @@ class CryptoController extends AbstractController
     /**
      * @Route("/new", name="app_crypto_new")
      */
-    public function formNewCrypto(Request $request, ApiTrackerController $apiTracker): Response
+    public function formNewCrypto(Request $request, ApiTrackerController $apiTracker, CryptoRepository $cryptoRepository): Response
     {    
         $crypto = new Crypto;
         $form = $this->createForm(CryptoType::class, $crypto);
@@ -55,9 +55,22 @@ class CryptoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() && $apiTracker->isCryptoExist($form['name']->getData())) {
 
             $crypto = $form->getData();
-            $crypto->setName(str_replace(' ', '-', strtolower($crypto->getName())));
-            $crypto->setAcronym($apiTracker->getAcronym($crypto->getName()));
 
+
+            if($apiTracker->isCryptoExist($crypto->getName()) == 'dash') {
+                $crypto->setName(str_replace(' ', '-', strtolower($crypto->getName())));        
+            }
+            else {
+                 if ($cryptoRepository->findOneBy(['name' => str_replace(' ', '', strtolower($crypto->getName()))])) {
+                    $this->addFlash('error', 'Cette crypto monnaie existe déjà.');
+                    return $this->render('crypto/formNewCrypto.html.twig', [
+                        'form' => $form->createView(), 
+                    ]);
+                 }
+                 $crypto->setName(str_replace(' ', '', strtolower($crypto->getName())));
+            }
+            
+            $crypto->setAcronym($apiTracker->getAcronym($crypto->getName()));
             $this->em->persist($crypto);
             $this->em->flush();
 

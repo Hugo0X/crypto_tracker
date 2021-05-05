@@ -13,7 +13,7 @@ use App\Controller\ApiTrackerController;
 
 /**
  * @ORM\Entity(repositoryClass=CryptoRepository::class)
- * @UniqueEntity(fields={"name"}, message="Cette crypto monnaie existe déjà, veuillez plutôt la mettre à jour")
+ * @UniqueEntity(fields={"name"}, message="Cette crypto monnaie existe déjà")
  */
 class Crypto
 {
@@ -88,7 +88,7 @@ class Crypto
         return( $apiTracker->getImageUrl($this->getName()));
     }
 
-    public function getCurrentPrice() : ?int
+    public function getCurrentPrice() : ?float
     {
         $apiTracker = new ApiTrackerController;
 

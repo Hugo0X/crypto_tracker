@@ -37,19 +37,20 @@ class ApiTrackerController extends AbstractController
 
     public function isCryptoExist($crypto)
     {
-        function get_http_response_code($url) {
-            $headers = get_headers($url);
-            return substr($headers[0], 9, 3);
-        }
+        $dashUrl = $this->apiLink . 'coins/'. str_replace(' ', '-', strtolower($crypto));
+        $spaceUrl = $this->apiLink . 'coins/'. str_replace(' ', '', strtolower($crypto));
 
-        $url = $this->apiLink . 'coins/'. str_replace(' ', '-', strtolower($crypto));
 
-        if(get_http_response_code($url) != "200"){
-            return false;
-        }
-        else{
-            return true;
-        }
+        if($this->get_http_response_code($dashUrl) == "200")
+            return 'dash';
+        elseif($this->get_http_response_code($spaceUrl) == "200")
+            return 'space';
+        else
+            return false;    
     }
-            
+
+    private function get_http_response_code($url) {
+        $headers = get_headers($url);
+        return substr($headers[0], 9, 3);
+    }
 }

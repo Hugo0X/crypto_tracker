@@ -14,7 +14,8 @@
     </div>
 </div>
 
-<a href="{{ path('app_history_graph')}}" class="text-decoration-none"><div class="py-5 h1 text-center text-light background"><p >+ {{ benefit(contracts) }} €</p></div></a>
+<a href="{{ path('app_history_graph')}}" class="text-decoration-none"><div class="py-5 h1 text-center text-light background">
+    <p> {% if benefit(contracts) >= 0 %}+{% endif %} {{ benefit(contracts) }} €</p></div></a>
 
 {% if contracts|length > 0  %} 
 <div class="mt-4 mx-4 col-10 mx-auto">       
@@ -22,7 +23,7 @@
         <div class="mb-5 borderBottom click" onclick="window.location.href = '{{ path('app_contract_delete', {'id': contract.id}) }}'">
             <div class="d-flex justify-content-between">
                 <div class="d-flex justify-content-start">
-                    <div class="">
+                    <div>
                         <img width="20" src={{ contract.crypto.getCryptoImageUrl }}>
                     </div>
                     <div class="ml-2 text-light d-flex align-items-start">
@@ -32,7 +33,7 @@
                         <p class="text-light regular">({{ contract.crypto.name|capitalize }})</p>
                     </div>
                 </div>
-                <div class="">
+                <div>
                     {{ fluctuation(contract) | raw }}  
                 </div>
             </div>

@@ -46,45 +46,28 @@ class AppExtension extends AbstractExtension
         return $this->fluctuationSwitch($currentPriceQuantity, intval($aSumCrypto['price']));
     }
 
-    private function fluctuationSwitch(int $currentPriceQuantity, int $price) : string
+    private function fluctuationSwitch(float $currentPriceQuantity, float $price) : string
     {
-        switch ($currentPriceQuantity){
-            case $currentPriceQuantity < $price * 2:
-                return $this->getHtmlIcon(2, 'rotate270');
-            case $currentPriceQuantity < $price:
-                return $this->getHtmlIcon(1, 'rotate270');
-            case $currentPriceQuantity > $price * 2:
-                return $this->getHtmlIcon(2, 'rotate120');
-            case $currentPriceQuantity > $price:
-                return $this->getHtmlIcon(1, 'rotate120');
-            case $currentPriceQuantity == $price:
-                return $this->getHtmlIcon(1);
-            }
+        // dd($currentPriceQuantity, $price);
+        if($currentPriceQuantity * 2 < $price)
+            return $this->getHtmlIcon(2, 'rotate270');
+        elseif($currentPriceQuantity < $price)
+            return $this->getHtmlIcon(1, 'rotate270');
+        elseif($currentPriceQuantity > $price * 2)
+            return $this->getHtmlIcon(2, 'rotate120');
+        elseif($currentPriceQuantity > $price)
+            return $this->getHtmlIcon(1, 'rotate120');
+        else
+            return $this->getHtmlIcon(1);
     }
 
     private function getHtmlIcon(int $nbrI, ?string $class) : string
     {
         if($class)
-        {
             $icon = 'reply';
-        }
         else
-        {
             $icon = 'forward';
-        }
 
         return str_repeat('<span class="material-icons text-light '. $class .'">'. $icon .'</span>', $nbrI);
-        // if ($nbrI ==1)
-        // {
-        //     return '<div class="material-icons text-light '. $class .'">'. $icon .'</div>';
-        // }
-        // else
-        // {
-        //     return '<div class="d-flex justify-content-end text-light">
-        //         <div class="material-icons '. $class .'">'. $icon .'</div>
-        //         <div class="material-icons '. $class .'">'. $icon .'</div>
-        //     </div>
-        //     ';
-        // }
     }
 }
