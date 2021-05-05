@@ -13,7 +13,7 @@ use App\Controller\ApiTrackerController;
 
 /**
  * @ORM\Entity(repositoryClass=CryptoRepository::class)
- * @UniqueEntity(fields={"name"}, message="This cryptocurrency already exist, please update instead")
+ * @UniqueEntity(fields={"name"}, message="Cette crypto monnaie existe déjà, veuillez plutôt la mettre à jour")
  */
 class Crypto
 {
@@ -26,6 +26,14 @@ class Crypto
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="ContractEntity.not_blank")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 100,
+     *      minMessage = "ContractEntity.minLenght",
+     *      maxMessage = "ContractEntity.maxLenght",
+     *      allowEmptyString = false
+     * )
      */
     private $name;
 

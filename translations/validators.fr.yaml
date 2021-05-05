@@ -1,4 +1,4 @@
-# translations/validators.en.yaml
+# translations/validators.fr.yaml
 ContractEntity.not_blank: Ce champs ne peut pas être vide.
 ContractEntity.minLenght: La longueur minimal est de {{ limit }} caractères
 ContractEntity.maxLenght: La longueur maximal est de {{ limit }} caractères

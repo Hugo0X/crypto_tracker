@@ -61,8 +61,11 @@ class CryptoController extends AbstractController
             $this->em->persist($crypto);
             $this->em->flush();
 
-            return $this->redirectToRoute('app_contract_home');
+            $this->addFlash('success', 'La crypto monnaie a bien été ajoutée !');
+            return $this->redirectToRoute('app_crypto_index');
         }
+        elseif($form->isSubmitted() && $form->isValid())
+            $this->addFlash('error', 'Cette crypto monnaie n\'existe pas.');
 
         return $this->render('crypto/formNewCrypto.html.twig', [
             'form' => $form->createView(), 
@@ -81,7 +84,8 @@ class CryptoController extends AbstractController
             $this->em->flush();
 
         }
-        return $this->redirectToRoute('app_contract_home');
+        $this->addFlash('success', 'La crypto monnaie a bien été supprimée !');
+        return $this->redirectToRoute('app_crypto_index');
     }
 
 }

@@ -176,3 +176,26 @@ input[type=number] {
     display: inline-block;
     margin-top: 13px;
 }
+
+// flash
+.alert
+{
+    padding: 10px;
+    color: white;
+    text-align: center;
+    border-radius: 0;
+    border: none;
+    margin: 0;
+
+    &.alert-success {
+        background-color: green;
+    }
+
+    &.alert-error {
+        background-color: red;
+    }
+
+    &.alert-info {
+        background-color: blue;
+    } 
+}
