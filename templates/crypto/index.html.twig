@@ -10,11 +10,12 @@
         <div class="mr-3"><a href="{{ path('app_crypto_new')}}" class="text-decoration-none text-light regular h2">+</a></div>    
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 {% if cryptos|length > 0  %} 
 <div class="mt-5 mx-4 col-10 mx-auto">     
     {% for crypto in cryptos %}
-        <div class="mb-5 borderBottom click" onclick="event.preventDefault(); confirm('Are you sure?') && document.getElementById('js-crypto-delete-form-{{ crypto.id }}').submit();">
+        <div class="mb-5 borderBottom click" data-toggle="modal" data-target="#deleteModal-{{ crypto.id }}">
             <div class="d-flex justify-content-between">
                 <div class="d-flex justify-content-start">
                     <div class="">
@@ -27,7 +28,7 @@
                         <p class="text-light regular">({{ crypto.name|capitalize }})</p>
                     </div>
                 </div>
-                <div class="">
+                <div>
                     {{ cryptoFluctuation(crypto, sumCrypto) | raw }}  
                 </div>
             </div>
@@ -36,7 +37,32 @@
             <input type="hidden" name="_token" value="{{ csrf_token('crypto_deletion_' ~ crypto.id) }}">
             <input type="hidden" name="_method" value="DELETE">
         </form>
-    {% endfor %}    
+
+        <!-- Modal -->
+            <div class="modal fade" id="deleteModal-{{ crypto.id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="bg-danger">
+                        <button type="button" class="mr-2 close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    <div class="my-5 icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    </div>
+                    <div class="modal-body text-center">
+                    <h4 class="mb-3 h3 modal-title text-dark" id="deleteModalModalLabel-{{ crypto.id }}">Supprimer {{ crypto.name|upper }}</h4>
+                    <p class="h6 text-dark">Êtes-vous sûr de vouloir supprimer cette crypto monnaie ? <br>
+                    Tous vos jetons associer seront supprimés !</p>
+                    </div>
+                    <div class="my-3 border-top text-center">
+                    <button type="button" class="mt-2 btn btn-primary btn-lg" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="mt-2 btn btn-outline-danger btn-lg" onclick="document.getElementById('js-crypto-delete-form-{{ crypto.id }}').submit();">Supprimer</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+    {% endfor %}
 
     {% else %}
         <p class="mt-5 h1 text-center ">Pas encore de crypto enregistrées<a href="{{ path('app_crypto_new') }}">The first!</a></p>

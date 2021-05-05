@@ -133,10 +133,10 @@ input[type=number] {
   }
 
 .center{
-position:absolute;
-bottom:5%;
-left:20%;
-width:60%;
+    position:absolute;
+    bottom:5%;
+    left:20%;
+    width:60%;
 
 }
 
@@ -146,15 +146,33 @@ width:60%;
 }
 
 .page-container {
-position: relative;
-min-height: 100vh;
+    position: relative;
+    min-height: 100vh;
 }
 
 .content-wrap {
-padding-bottom: 5rem;
+    padding-bottom: 5rem;
 }
 
 .btnFooter {
-position: absolute;
-bottom: 10%;
+    position: absolute;
+    bottom: 10%;
+}
+
+
+// modal
+.icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 9;
+    text-align: center;
+    border: 3px solid #ffffff;
+}
+.icon-box i {
+    color: #ffffff;
+    font-size: 46px;
+    display: inline-block;
+    margin-top: 13px;
 }
