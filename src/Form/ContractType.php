@@ -16,10 +16,33 @@ class ContractType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('crypto', EntityType::class, ['placeholder' => 'Sélectionner une crypto', 'label' => false, 'class' => Crypto::class, 'choice_label' => 'name', 'multiple' => false, 'expanded' => false])
+            ->add('crypto', EntityType::class, 
+                ['placeholder' => 'Sélectionner une crypto', 
+                    'label' => false, 
+                    'class' => Crypto::class, 
+                    'choice_label' => 'name', 
+                    'multiple' => false, 
+                'expanded' => false
+            ])
             // ->add('crypto', SearchType::class, ['label' => false]) //'mapped' => false, 
-            ->add('price', NumberType::class, ['label' => false, 'html5' => true, 'attr' => ['step' => 0.01, 'min' => 0.01, 'label' => false]])
-            ->add('quantity', NumberType::class, ['label' => false, 'html5' => true, 'attr' => ['step' => 0.000001, 'min' => 0.000001, 'label' => false]])
+            ->add('price', NumberType::class, 
+                ['label' => false, 
+                    'html5' => true, 
+                    'attr' => [
+                        'step' => 0.01, 
+                        'min' => 0.01, 
+                        'label' => false
+                    ]
+            ])
+            ->add('quantity', NumberType::class, 
+                ['label' => false, 
+                'html5' => true, 
+                'attr' => [
+                    'step' => 0.000001, 
+                    'min' => 0.000001, 
+                    'label' => false
+                ]
+            ])
         ;
     }
 

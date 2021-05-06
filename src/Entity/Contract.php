@@ -30,7 +30,7 @@ class Contract
      * @Assert\NotBlank(message="ContractEntity.not_blank")
      * @Assert\Length(
      *      min = 1,
-     *      max = 50,
+     *      max = 11,
      *      minMessage = "ContractEntity.minLenght",
      *      maxMessage = "ContractEntity.maxLenght",
      *      allowEmptyString = false
@@ -46,7 +46,7 @@ class Contract
      * @Assert\NotBlank(message="ContractEntity.not_blank")
      * @Assert\Length(
      *      min = 1,
-     *      max = 50,
+     *      max = 40,
      *      minMessage = "ContractEntity.minLenght",
      *      maxMessage = "ContractEntity.maxLenght",
      *      allowEmptyString = false

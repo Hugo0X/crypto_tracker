@@ -56,20 +56,19 @@ class CryptoController extends AbstractController
 
             $crypto = $form->getData();
 
-
             if($apiTracker->isCryptoExist($crypto->getName()) == 'dash') {
                 $crypto->setName(str_replace(' ', '-', strtolower($crypto->getName())));        
             }
             else {
-                 if ($cryptoRepository->findOneBy(['name' => str_replace(' ', '', strtolower($crypto->getName()))])) {
-                    $this->addFlash('error', 'Cette crypto monnaie existe déjà.');
-                    return $this->render('crypto/formNewCrypto.html.twig', [
-                        'form' => $form->createView(), 
-                    ]);
-                 }
-                 $crypto->setName(str_replace(' ', '', strtolower($crypto->getName())));
+                $crypto->setName(str_replace(' ', '', strtolower($crypto->getName())));   
             }
-            
+
+            if ($cryptoRepository->findOneBy(['name' => $crypto->getName()])) {
+                $this->addFlash('error', 'Cette crypto monnaie existe déjà.');
+                return $this->render('crypto/formNewCrypto.html.twig', [
+                    'form' => $form->createView(), 
+                ]);
+             }
             $crypto->setAcronym($apiTracker->getAcronym($crypto->getName()));
             $this->em->persist($crypto);
             $this->em->flush();

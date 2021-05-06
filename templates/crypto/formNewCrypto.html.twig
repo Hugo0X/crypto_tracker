@@ -13,13 +13,19 @@
             <div class="invisible"></div>
         </div>
     </div>
+
     <div class="m_top col-10 mx-auto content-wrap">
-        <div class="my-5 p-2 border border-light rounded d-flex">
-        
-        <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">add</div>
-        {{ form_row(form.name, {'attr': {'placeholder': 'Ajouter une crypto', 'list':'listCrypto', 'class': 'text-light regular theme_background w-100 pt-1 ', 'size':'10000' }}) }}
+
+        <div class="my-5 p-2 border border-light rounded">
+            <div class="d-flex">
+                <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">add</div>
+                {{ form_widget(form.name, {'attr': {'placeholder': 'Ajouter une crypto', 'list':'listCrypto', 'class': 'text-light regular theme_background w-100 pt-1 ', 'size':'10000' }}) }}     
+            </div>
+            {{ form_errors(form.name) }}
         </div>
+
     </div>
+
 </div>
 
 <div class="center btnFooter">

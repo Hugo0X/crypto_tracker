@@ -14,18 +14,26 @@
     </div>
     <div class="m_top col-10 mx-auto content-wrap">
         {{ form_start(form) }}
-            <div class="my-5 p-2 border border-light rounded d-flex">
+            <div class="my-5 p-2 border border-light rounded">
+                <div class="d-flex">
                     <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">search</div>
                     {{ form_widget(form.crypto, {'attr': { 'class': 'text-light regular theme_background noneDropdownBorder w-100 pb-1' , }}) }}{#'size':'10000'#}
-                    {# <div>{{ form_row(form.crypto, {'attr': {'placeholder': 'Sélectionner une crypto', 'list':'listCrypto', 'class': 'text-light regular theme_background w-100 pt-1', }}) }}</div>'size':'10000' #}
+                </div>{# <div>{{ form_row(form.crypto, {'attr': {'placeholder': 'Sélectionner une crypto', 'list':'listCrypto', 'class': 'text-light regular theme_background w-100 pt-1', }}) }}</div>'size':'10000' #}
+                <div class="mt-1">{{ form_errors(form.crypto) }}</div>
             </div>
-            <div class="my-5 p-2 pb-3 border border-light rounded d-flex">
-                <div class="ml-2 mr-4 pt-1"><img class="ajustImg" src=" {{ asset('build/images/coin.png') }}"></div>
-                {{ form_widget(form.quantity, {'attr': {'placeholder': 'Quantité', 'class': 'text-light regular w-100 pt-1'}}) }}
+            <div class="my-5 p-2 pb-3 border border-light rounded">
+                <div class="d-flex">
+                    <div class="ml-2 mr-4 pt-1"><img class="ajustImg" src=" {{ asset('build/images/coin.png') }}"></div>
+                    {{ form_widget(form.quantity, {'attr': {'placeholder': 'Quantité', 'class': 'text-light regular w-100 pt-1'}}) }}
+                </div>
+                <div class="mt-1">{{ form_errors(form.quantity) }}</div>
             </div>
-            <div class="my-5 p-2 border border-light rounded d-flex">
-                <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">euro</div>
-                {{ form_widget(form.price, {'attr': {'placeholder': 'Prix d\'achat', 'class': 'text-light regular w-100 pb-1'}}) }}
+            <div class="my-5 p-2 border border-light rounded">
+                <div class="d-flex">
+                    <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">euro</div>
+                    {{ form_widget(form.price, {'attr': {'placeholder': 'Prix d\'achat', 'class': 'text-light regular w-100 pb-1'}}) }}
+                </div>    
+                <div class="mt-1">{{ form_errors(form.price) }}</div>
             </div>
             
     </div>
