@@ -36,7 +36,7 @@ class ContractController extends AbstractController
     /**
      * @Route("/contract/new", name="app_contract_add", methods={"GET","POST"}) 
      */
-    public function formAddContract(Request $request, ApiTrackerController $apiTracker, ContractRepository $contractRepository): Response
+    public function formAddContract(Request $request, ContractRepository $contractRepository): Response
     {   
         $contract = new Contract;
         $form = $this->createForm(ContractType::class, $contract);
@@ -64,7 +64,7 @@ class ContractController extends AbstractController
     /**
      * @Route("/delete/{id<[0-9]+>}", name="app_contract_delete", methods={"GET","DELETE"})
      */
-    public function delete(Request $request, Contract $contract): Response
+    public function delete(Request $request, Contract $contract, ApiTrackerController $apiTracker): Response
     {
         if ($this->isCsrfTokenValid('contract_deletion_'.$contract->getId(), $request->request->get('_token')) && is_numeric($request->request->get('quantityDelete')) && $request->request->get('quantityDelete') >= 0.000001) {
             
@@ -74,9 +74,10 @@ class ContractController extends AbstractController
             {
                 $this->em->remove($contract);
             }
-            else
+            
             {
                 $contract->setQuantity($contract->getQuantity() - $quantityDelete);
+                $contract->setPrice($contract->getPrice() - $quantityDelete * $apiTracker->getCurrency($contract->getCrypto()->getName()));
                 $this->em->persist($contract);
             }
             $this->em->flush();
