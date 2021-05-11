@@ -5,6 +5,10 @@
         <title>{% block title %}Crypto Tracker{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('build/images/favicon/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('build/images/favicon/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('build/images/favicon/favicon-16x16.png') }}">
+        <link rel="manifest" href="{{ asset('build/images/favicon/site.webmanifest') }}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         {% endblock %}
 
