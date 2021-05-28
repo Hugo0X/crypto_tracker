@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accès interdit | TPLV{% endblock %}
+
+{% block body %}
+
+<div class="text-center">
+    <h1 class="mt-5 h2">ERREUR 403</h1>
+    <p class="mt-3 material-icons md-light md-inactive" style="font-size:calc(600% + 1.5vw)">savings</p>        
+    <h5 class="mt-3">On ne touche pas à cet argent ! </h5>
+    <a href="{{ path('app_contract_home') }}" class="h5 text-muted">Retour au menu</a>
+</div>
+
+{% endblock %}

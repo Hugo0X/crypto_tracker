@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable | TPLV{% endblock %}
+
+{% block body %}
+
+<div class="text-center">
+    <h1 class="mt-5 h2">ERREUR 404</h1>
+    <p class="mt-3 material-icons md-light md-inactive" style="font-size:calc(600% + 1.5vw)">money_off</p>
+    <h5 class="mt-3">Hmmm... Rien de très intéressant ici.</h5>
+    <a href="{{ path('app_contract_home') }}" class="h5 text-muted"><p>Retour au menu</p></a>
+</div>
+
+    
+{% endblock %}
