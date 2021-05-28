@@ -70,16 +70,15 @@ class ContractController extends AbstractController
             
             $quantityDelete = $request->request->get('quantityDelete');
 
-            if($quantityDelete > $contract->getQuantity())
-            {
+            if($quantityDelete >= $contract->getQuantity()) {
                 $this->em->remove($contract);
             }
-            
-            {
+            else {
                 $contract->setQuantity($contract->getQuantity() - $quantityDelete);
                 $contract->setPrice($contract->getPrice() - $quantityDelete * $apiTracker->getCurrency($contract->getCrypto()->getName()));
                 $this->em->persist($contract);
             }
+
             $this->em->flush();
 
             $this->addFlash('success', 'La suppression a bien été effectuée.');
