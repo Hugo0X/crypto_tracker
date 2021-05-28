@@ -25,12 +25,6 @@
     font-style: normal;
 }
 
-$primary: #000091;
-
-$theme-colors: (
-  primary: $primary
-);
-
 @import "bootstrap";
 
 body {
@@ -52,7 +46,6 @@ h1 {
 a {
     text-decoration: none;
     outline: none;
-    color: $primary;
 }
 
 .theme_color {
