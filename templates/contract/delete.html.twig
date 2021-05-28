@@ -22,7 +22,7 @@
         </div>
         <div class="my-5 p-2 pb-3 border border-light rounded d-flex">
             <div class="ml-2 mr-4 pt-1"><img class="ajustImg" src=" {{ asset('build/images/coin.png') }}"></div>
-            <input type="number" placeholder="Quantité" class="pt-1 regular text-light w-100" name="quantityDelete" step="0.000001" required="required" min="0.000001" maxlenght="50">     
+            <input type="number" value="{{ contract.quantity }}" placeholder="Quantité" class="pt-1 regular text-light w-100" name="quantityDelete" step="0.000001" required="required" min="0.000001" maxlenght="50">     
         </div>
     </div>
 
