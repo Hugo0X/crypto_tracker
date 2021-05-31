@@ -52,6 +52,7 @@ class CryptoController extends AbstractController
         $form = $this->createForm(CryptoType::class, $crypto);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid() && $apiTracker->isCryptoExist($form['name']->getData())) {
 
             $crypto = $form->getData();
@@ -80,7 +81,8 @@ class CryptoController extends AbstractController
             $this->addFlash('error', 'Cette crypto monnaie n\'existe pas.');
 
         return $this->render('crypto/formNewCrypto.html.twig', [
-            'form' => $form->createView(), 
+            'form' => $form->createView(),
+            'cryptoList' => $apiTracker->getAllCrypto()
         ]);
     }
 
@@ -94,8 +96,8 @@ class CryptoController extends AbstractController
             $this->em->remove($crypto);
         
             $this->em->flush();
-
         }
+        
         $this->addFlash('success', 'La crypto monnaie a bien été supprimée !');
         return $this->redirectToRoute('app_crypto_index');
     }

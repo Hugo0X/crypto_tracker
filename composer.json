@@ -9,6 +9,7 @@
         "ext-iconv": "*",
         "cmen/google-charts-bundle": "^4.0",
         "composer/package-versions-deprecated": "1.11.99.1",
+        "cron/cron-bundle": "^2.6",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",

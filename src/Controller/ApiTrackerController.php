@@ -35,6 +35,14 @@ class ApiTrackerController extends AbstractController
         return $r;
     }
 
+    public function getAllCrypto()
+    {
+        $response = file_get_contents( $this->apiLink . 'coins/list?include_platform=false');
+        $response = json_decode($response);
+        $r = array_column($response, 'id');
+        return $r;
+    }
+
     public function isCryptoExist($crypto)
     {
         $dashUrl = $this->apiLink . 'coins/'. str_replace(' ', '-', strtolower($crypto));
