@@ -21,9 +21,11 @@
                 <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">add</div>
                 {{ form_widget(form.name, {'attr': {'placeholder': 'Ajouter une crypto', 'list':'listCrypto', 'class': 'text-light regular theme_background w-100 pt-1 ', 'size':'10000' }}) }}
                 <datalist id="listCrypto">
-                    {% for crypto in cryptoList %}
-                    <option value="{{ crypto }}">
-                    {% endfor %}
+                    <select>
+                        {% for crypto in cryptoList %}
+                        <option value="{{ crypto }}">
+                        {% endfor %}
+                    </select>
                 </datalist>     
             </div>
             {{ form_errors(form.name) }}
