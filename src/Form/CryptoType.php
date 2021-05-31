@@ -6,7 +6,7 @@ use App\Entity\Crypto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CryptoType extends AbstractType
 {
@@ -14,7 +14,7 @@ class CryptoType extends AbstractType
     {
         $builder
             // ->add('name', null, ['label' => false])
-            ->add('name', SearchType::class, ['label' => false])
+            ->add('name', TextType::class, ['label' => false])
         ;
     }
 
