@@ -42,23 +42,24 @@ class History
         return $this;
     }
 
-    public function getAllBenefit(EntityManagerInterface $em) : ?int
-    {
-        $query = $em->createQuery(
-            'SELECT cry.name, SUM(con.price) price, SUM(con.quantity) quantity, 
-            FROM App\Entity\Contract con
-            INNER JOIN  App\Entity\Crypto cry
-            GROUP BY con.crypto '
-        );
-        $sumCrypto = $query->getResult();
+    // public function getAllBenefit() : ?int
+    // {
+    //     $query = $em->createQuery(
+    //         'SELECT cry.name, SUM(con.price) price, SUM(con.quantity) quantity, 
+    //         FROM App\Entity\Contract con
+    //         INNER JOIN  App\Entity\Crypto cry
+    //         GROUP BY con.crypto '
+    //     );
 
-        $apiTracker = new ApiTrackerController;
+    //     $sumCrypto = $query->getResult();
 
-        foreach ($sumCrypto as $aSumCrypto)
-        {
-            $benefit += $apiTracker->getCurrency($aSumCrypto['name']) * $aSumCrypto['quantity'] - $aSumCrypto['price'];
-        }
+    //     $apiTracker = new ApiTrackerController;
 
-        return $this->setBenefit($benefit);
-    }
+    //     foreach ($sumCrypto as $aSumCrypto)
+    //     {
+    //         $benefit += $apiTracker->getCurrency($aSumCrypto['name']) * $aSumCrypto['quantity'] - $aSumCrypto['price'];
+    //     }
+
+    //     return $this->setBenefit($benefit);
+    // }
 }
