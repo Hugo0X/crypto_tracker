@@ -6,12 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ContractControllerTest extends WebTestCase
 {
-    public function testSomething(): void
+    public function testWelcomePageIsUp()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/');
-
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Hello World');
+        $client->request('GET', '/');
+        $this->assertSame(200, $client->getResponse()->getStatusCode());
+	   echo $client->getResponse()->getContent();
+       echo "hey";
     }
 }
