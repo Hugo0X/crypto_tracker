@@ -4,7 +4,7 @@
 
 {% block body %}
 
-{{ form_start(form) }}
+{{ form_start(form,{'attr': {'id': 'addNewCryptoForm'}}) }}
 <div class="page-container">
     <div class="py-2 borderBottom">
         <div class="d-flex justify-content-between text-light" >
@@ -16,17 +16,12 @@
 
     <div class="m_top col-10 mx-auto content-wrap">
 
-        <div class="my-5 p-2 border border-light rounded">
+        <div id="inputContainer" class="my-5 p-2 border rounded">
             <div class="d-flex">
                 <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">add</div>
-                {{ form_widget(form.name, {'attr': {'placeholder': 'Ajouter une crypto', 'list':'listCrypto', 'class': 'text-light regular theme_background w-100 pt-1 ', 'size':'10000' }}) }}
-                {# <datalist id="listCrypto">
-                        {% for crypto in cryptoList %}
-                        <option value="{{ crypto }}">
-                        {% endfor %}
-                </datalist>      #}
+                {{ form_widget(form.name, {'attr': {'placeholder': 'Ajouter une crypto', 'class': 'text-light regular theme_background w-100 pt-1 ', 'autocomplete':'off',  'size':'10000' }}) }}
             </div>
-            <ul class="drop"></ul>
+            <ul class="items"></ul>
             {{ form_errors(form.name) }}
         </div>
 
@@ -35,48 +30,24 @@
 </div>
 
 <div class="center btnFooter">
-    <button type="submit" class="py-3 btn btn-lg theme_background_darckGrey theme_color">AJOUTER</button>
+    <a onclick="inputValidation()" class="py-3 btn btn-lg theme_background_darckGrey theme_color">AJOUTER</a>
 </div>
 {{ form_end(form) }}
 
-
-<style>
-    ul {        
-    height: 0;
-    overflow: hidden; 
-    transition: .4s height;
-    margin: 0;
-    padding: 0;
-}
-
-li {
-    /* font-size: 13px; */
-    padding: 10px;
-    list-style: none;
-    border-top: 1px solid #ffffff;
-    margin: 0 2%;
-    cursor: pointer;
-}
-
-.match {
-    font-weight: 600;
-    color: green;
-}
-</style>
-
 <script>
-    const words = ["suppose end get","boy warrant general","natural. delightful","met sufficient projection ask.","decisively everything","principles if preference","do","impression","of. preserved oh so","difficult repulsive on","in household. in what","do","miss time be. valley","as be","appear","cannot so","by.","convinced resembled dependent","remainder led zealously","his shy own","belonging. always length","letter","adieus","add number moment she.","promise few","compass six several old","offices removal parties","fat. concluded","rapturous it intention","perfectly daughters","is as.","behaviour we","improving at something","to. evil true","high lady roof men","had open.","to projection considered it","precaution an","melancholy or.","wound young","you thing","worse along being ham.","dissimilar of favourable solicitude","if sympathize middletons","at. forfeited","up if disposing","perfectly in an","eagerness perceived necessary.","belonging sir","curiosity discovery","extremity yet","forfeited prevailed","own off.","travelling by","introduced of","mr terminated. knew as","miss","my high hope quit. in","curiosity shameless dependent","knowledge up.","literature admiration","frequently indulgence announcing","are who you","her. was","least quick after","six. so","it yourself repeated","together","cheerful. neither it cordial so","painful picture studied if.","sex","him position doubtful","resolved boy expenses.","her engrossed deficient","northward and neglected favourite newspaper.","but","use peculiar","produced concerns ten. maids","table how","learn","drift","but purse","stand yet","set. music me","house could","among oh","as their. piqued","our","sister shy nature almost","his","wicket.","hand dear","so we hour","to. he","we be","hastily","offence effects","he service. sympathize","it projection","ye insipidity celebrated"]
 
+const words = JSON.parse('{{ cryptoList | json_encode | raw }}')
+
+const inputContainer = document.querySelector('#inputContainer')
 const formEl = document.querySelector('#crypto_name')
-const dropEl = document.querySelector('.drop')
+const dropEl = document.querySelector('.items')
 
-// formEl.addEventListener("click", Johnny);
 function setItemToInput(id) {
     formEl.value = id; 
 }
 
 const formHandler = (e) => {
-
+    
     const userInput = e.target.value.toLowerCase()
 
     if(userInput.length === 0) {
@@ -84,7 +55,7 @@ const formHandler = (e) => {
         return dropEl.innerHTML = ''              
     }
 
-    const filteredWords = words.filter(word => word.toLowerCase().includes(userInput)).sort().splice(0, 4)
+    const filteredWords = words.filter(word => word.toLowerCase().includes(userInput)).sort().splice(0, 20)
     
     dropEl.innerHTML = ''
     filteredWords.forEach(item => {
@@ -100,15 +71,40 @@ const formHandler = (e) => {
     })
 
     if(dropEl.children[0] === undefined) {
+        inputContainer.classList.add("border-danger");
+        inputContainer.classList.remove("border-light");
         return dropEl.style.height = 0
     }
+    else {
+        inputContainer.classList.add("border-light");
+        inputContainer.classList.remove("border-danger");
+    }
 
-    let totalChildrenHeight = dropEl.children[0].offsetHeight * filteredWords.length
+    if (filteredWords.length > 5){
+        var wordDiplay = 5;
+    }
+    else {
+        var wordDiplay = filteredWords.length;
+    }
+    let totalChildrenHeight = dropEl.children[0].offsetHeight * wordDiplay
     dropEl.style.height = totalChildrenHeight + 'px'
 
 }
 
+function inputValidation() {
+    if(words.includes(formEl.value)) {
+        document.getElementById("addNewCryptoForm").submit(); 
+    }
+    else {
+        inputContainer.classList.add("animationInputshake");
+        setTimeout(function(){ inputContainer.classList.remove("animationInputshake"); }, 1000);
+    }
+}
+
 formEl.addEventListener('input', formHandler)
+
+
+
 </script>
 
 {% endblock %}

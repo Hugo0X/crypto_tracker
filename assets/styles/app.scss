@@ -27,16 +27,19 @@
 
 @import "bootstrap";
 
+$themeDarckGrey : #585757;
+$themeBackgroundBlack : #100f0f; 
+
 body {
 
     font-family: 'Roboto-Bold', sans-serif;
     @extend .text-light;
-    background-color: #100f0f;//100f0f
+    background-color: $themeBackgroundBlack;
 }
 
 .theme_background {
     @extend .text-light;
-    background-color: #100f0f;//100f0f
+    background-color: $themeBackgroundBlack;
 }
 
 h1 {
@@ -53,7 +56,7 @@ button {
 }
 
 .theme_color {
-    color: #100f0f;
+    color: $themeBackgroundBlack;
 }
 
 .theme_grey {
@@ -62,7 +65,7 @@ button {
 
 .theme_background_darckGrey
 {
-    background-color: #585757;
+    background-color: $themeDarckGrey;
 }
 
 .click
@@ -104,7 +107,7 @@ button {
 }
 
 input {
-    background-color: #100f0f; 
+    background-color: $themeBackgroundBlack; 
     outline: none; 
     border-width:0px; 
     border:none;
@@ -165,6 +168,55 @@ input[type=number] {
     bottom: 10%;
 }
 
+// add crypto
+.items {        
+    height: 0;
+    overflow: auto; 
+    transition: .4s height;
+    margin: 0;
+    padding: 0;
+    scrollbar-color: $themeDarckGrey black; // Firefox
+
+}
+
+.items::-webkit-scrollbar-track { // Chrome, Edge, Safari
+    background: black;
+}
+.items::-webkit-scrollbar-thumb {
+    background-color: $themeDarckGrey;
+}
+.items::-webkit-scrollbar {
+    width: 15px;
+}
+
+li {
+    /* font-size: 13px; */
+    padding: 10px;
+    list-style: none;
+    border-top: 1px solid #ffffff;
+    margin: 0 2%;
+    cursor: pointer;
+}
+
+.match {
+    font-weight: 600;
+    color: green;
+}
+
+// shake input in addCrypto
+
+.animationInputshake {
+    animation: Inputshake 0.4s 1 linear;
+}
+@keyframes Inputshake {
+    0% { -webkit-transform: translate(30px); }
+    20% { -webkit-transform: translate(-30px); }
+    40% { -webkit-transform: translate(15px); }
+    60% { -webkit-transform: translate(-15px); }
+    80% { -webkit-transform: translate(8px); }
+    100% { -webkit-transform: translate(0px); }
+}
+
 
 // modal
 .icon-box {
@@ -202,6 +254,6 @@ input[type=number] {
     }
 
     &.alert-info {
-        background-color: $primary;
+        background-color: $themeDarckGrey;
     } 
 }
