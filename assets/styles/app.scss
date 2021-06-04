@@ -165,10 +165,22 @@ input[type=number] {
 
 .btnFooter {
     position: absolute;
+    z-index: 1;
     bottom: 10%;
 }
 
+.zIndex2 {
+    position: relative;
+    z-index: 2;
+}
+
 // add crypto
+
+#inputContainer {
+    position: relative;
+    z-index: 10;
+}
+
 .items {        
     height: 0;
     overflow: auto; 
@@ -176,6 +188,8 @@ input[type=number] {
     margin: 0;
     padding: 0;
     scrollbar-color: $themeDarckGrey black; // Firefox
+    position: relative;
+    z-index: 10;
 }
 
 .items::-webkit-scrollbar-track { // Chrome, Edge, Safari
@@ -194,6 +208,8 @@ li {
     border-top: 1px solid #ffffff;
     margin: 0 2%;
     cursor: pointer;
+    position: relative;
+    z-index: 10;
 }
 
 .match {

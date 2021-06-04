@@ -6,7 +6,7 @@
 
 {{ form_start(form,{'attr': {'id': 'addNewCryptoForm'}}) }}
 <div class="page-container">
-    <div class="py-2 borderBottom">
+    <div class="py-2 borderBottom zIndex2">
         <div class="d-flex justify-content-between text-light" >
             <div class="ml-2 h1 regular"><a href="{{ path('app_crypto_index')}}" class="text-decoration-none text-light">×</a></div>
             <div class="h4 d-flex align-items-center">Ajouter une Crypto Monnaie</div>
@@ -16,7 +16,7 @@
 
     <div class="m_top col-10 mx-auto content-wrap">
 
-        <div id="inputContainer" style="z-index: 1;" class="my-5 p-2 border rounded">
+        <div id="inputContainer" class="my-5 p-2 border rounded">
             <div class="d-flex">
                 <div class="h4 ml-2 mr-4 pt-1 theme_grey material-icons">add</div>
                 {{ form_widget(form.name, {'attr': {'placeholder': 'Ajouter une crypto', 'class': 'text-light regular theme_background w-100 pt-1 ', 'autocomplete':'off',  'size':'10000' }}) }}
@@ -29,8 +29,8 @@
 
 </div>
 
-<div class="center btnFooter" style="z-index: -1;">
-    <a onclick="inputValidation()" style="z-index: -1;" class="py-3 btn btn-lg theme_background_darckGrey theme_color">AJOUTER</a>
+<div class="center btnFooter">
+    <a onclick="inputValidation()" class="py-3 btn btn-lg theme_background_darckGrey theme_color">AJOUTER</a>
 </div>
 {{ form_end(form) }}
 
