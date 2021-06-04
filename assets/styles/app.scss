@@ -176,7 +176,6 @@ input[type=number] {
     margin: 0;
     padding: 0;
     scrollbar-color: $themeDarckGrey black; // Firefox
-
 }
 
 .items::-webkit-scrollbar-track { // Chrome, Edge, Safari
@@ -190,7 +189,6 @@ input[type=number] {
 }
 
 li {
-    /* font-size: 13px; */
     padding: 10px;
     list-style: none;
     border-top: 1px solid #ffffff;
