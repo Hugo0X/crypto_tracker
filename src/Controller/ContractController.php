@@ -74,8 +74,8 @@ class ContractController extends AbstractController
                 $this->em->remove($contract);
             }
             else {
+                $contract->setPrice($contract->getPrice() - $quantityDelete * ($contract->getPrice()/$contract->getQuantity()));
                 $contract->setQuantity($contract->getQuantity() - $quantityDelete);
-                $contract->setPrice($contract->getPrice() - $quantityDelete * $apiTracker->getCurrency($contract->getCrypto()->getName()));
                 $this->em->persist($contract);
             }
 
