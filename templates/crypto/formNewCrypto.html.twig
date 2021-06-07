@@ -93,7 +93,7 @@ const formHandler = (e) => {
 }
 
 function inputValidation() {
-    if(words.includes(formEl.value)) {
+    if(words.includes(formEl.value.toLowerCase())) {
         document.getElementById("addNewCryptoForm").submit(); 
     }
     else {
