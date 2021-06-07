@@ -4,7 +4,7 @@
 
 {% block body %}
 
-{{ form_start(form,{'attr': {'id': 'addNewCryptoForm'}}) }}
+{{ form_start(form, {'attr': {'id': 'addNewCryptoForm'}}) }}
 <div class="page-container">
     <div class="py-2 borderBottom zIndex2">
         <div class="d-flex justify-content-between text-light" >
@@ -22,7 +22,7 @@
                 {{ form_widget(form.name, {'attr': {'placeholder': 'Ajouter une crypto', 'class': 'text-light regular theme_background w-100 pt-1 ', 'autocomplete':'off',  'size':'10000' }}) }}
             </div>
             <ul class="items"></ul>
-            {{ form_errors(form.name) }}
+            <span id="newCryptoError">{{ form_errors(form.name, {'attr': {'id': 'newCryptoError'}}) }}</span>
         </div>
 
     </div>
@@ -76,6 +76,7 @@ const formHandler = (e) => {
         return dropEl.style.height = 0
     }
     else {
+        document.querySelector('#newCryptoError').style.display = "none";
         inputContainer.classList.add("border-light");
         inputContainer.classList.remove("border-danger");
     }
